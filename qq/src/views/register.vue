@@ -11,6 +11,7 @@
 
 <script type="text/ecmascript-6">
   import md5 from 'md5'
+
   export default {
     data() {
       return {
