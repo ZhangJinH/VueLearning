@@ -1,19 +1,36 @@
 <template>
     <div class="tab">
-        <router-link class="message" tag="div" to="/message">消息</router-link>
-        <router-link class="friends" tag="div" to="/friends">联系人</router-link>
+      <router-link v-for="(item,index) in link" :key="index" @click.native="change(index)"
+                   :class="item.name" tag="div" :to="item.name">{{item.title}}</router-link>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import {mapMutations} from 'vuex'
   export default {
     data() {
-      return {}
+      return {
+        link:[{
+          name:'message',
+          title:'消息'
+        },
+          {
+            name:'friends',
+            title:'联系人'
+          }]
+      }
     },
     created() {
 
     },
-    methods: {}
+    methods: {
+      change(index){
+        this.setIndex(index)
+      },
+      ...mapMutations({
+        setIndex: 'SET_INDEX'
+      })
+    }
   }
 </script>
 

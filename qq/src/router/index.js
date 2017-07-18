@@ -30,15 +30,15 @@ export default new Router({
         //如果有子路由，父级路由不能有name属性
         {
           path:'/',
-          redirect:'/message'
+          redirect:'message'
         },
         {
-          path:'/message',
+          path:'message',
           name:'message',
           component: Message
         },
         {
-          path:'/friends',
+          path:'friends',
           name:'friends',
           component: Friends
         }

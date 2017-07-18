@@ -5,14 +5,24 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {mapGetters} from 'vuex'
   export default {
     data() {
-      return {}
+      return {
+
+      }
     },
     created() {
+      console.log(this.currentIndex);
+    },
+    methods: {
 
     },
-    methods: {}
+    computed: {
+      ...mapGetters([
+        'currentIndex'
+      ])
+    }
   }
 </script>
 

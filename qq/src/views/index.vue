@@ -1,5 +1,6 @@
 <template>
     <div class="index">
+      <m-header></m-header>
       <router-view></router-view>
       <tab></tab>
     </div>
@@ -7,6 +8,7 @@
 
 <script type="text/ecmascript-6">
   import tab from 'components/tab/tab'
+  import MHeader from 'components/header/header'
   export default {
     data() {
       return {}
@@ -18,7 +20,16 @@
 
     },
     components: {
-      tab
+      tab,
+      MHeader
     }
   }
 </script>
+
+<style>
+.index {
+  width: 100%;
+  overflow: hidden;
+  padding-bottom: 60px;
+}
+</style>

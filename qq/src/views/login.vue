@@ -52,9 +52,8 @@
               })
             }else {
               sessionStorage.setItem('user',JSON.stringify(res.data))
-              this.$router.push({name:'index'})
+              this.$router.push({path:'/index'})
             }
-
           })
       }
     }
