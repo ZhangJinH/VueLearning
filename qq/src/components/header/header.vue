@@ -6,7 +6,7 @@
       <div v-if="currentIndex === 0" class="more" @click="toggleJumpBox">
         <img src="../../assets/more.png" alt="">
         <div v-if="jumpBoxShow" class="jump-wrapper">
-          <router-link tag="p" to="">加好友/群</router-link>
+          <router-link tag="p" to="/addfriends">加好友/群</router-link>
           <router-link tag="p" to="">扫一扫</router-link>
         </div>
       </div>
@@ -15,8 +15,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {mapGetters} from 'vuex'
-
+  import {mapGetters} from 'vuex';
   export default {
     data() {
       return {

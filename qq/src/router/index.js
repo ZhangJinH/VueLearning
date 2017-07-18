@@ -5,6 +5,7 @@ import Friends from 'views/friends'
 import Login from 'views/login'
 import Index from 'views/index'
 import Register from 'views/register'
+import AddFriends from 'views/addfriends'
 Vue.use(Router)
 
 export default new Router({
@@ -22,6 +23,11 @@ export default new Router({
       path:'/register',
       name:'register',
       component: Register
+    },
+    {
+      path:'/addfriends',
+      name:'addfriends',
+      component: AddFriends
     },
     {
       path:'/index',
