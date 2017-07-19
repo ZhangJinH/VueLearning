@@ -1,4 +1,3 @@
-
 const actions = {
   add_note({commit}) {
     return commit('ADD_NOTE')

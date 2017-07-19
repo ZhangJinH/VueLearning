@@ -1,3 +1,4 @@
+//使用types进行mutations方法名字的管理
 export const ADD_NOTE = 'ADD_NOTE'
 export const EDITE_NOTE = 'EDITE_NOTE'
 export const DELETE_NOTE = 'DELETE_NOTE'
