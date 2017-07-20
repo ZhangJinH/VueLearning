@@ -8,7 +8,6 @@
 
 <script type="text/ecmascript-6">
   import {mapGetters,mapActions} from 'vuex'
-  import {activeNote} from "../store/getters";
 
   export default {
     data() {
