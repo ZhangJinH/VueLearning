@@ -1,0 +1,6 @@
+export const ADD_NOTE = 'ADD_NOTE'
+export const DEL_NOTE = 'DEL_NOTE'
+export const EDIT_NOTE = 'EDIT_NOTE'
+export const ADD_FAVOR = 'ADD_FAVOR'
+export const DEL_FAVOR = 'DEL_FAVOR'
+export const SET_ACTIVE = 'SET_ACTIVE'
