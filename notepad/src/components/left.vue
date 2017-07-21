@@ -54,6 +54,8 @@
     text-align: center;
   }
   .el-tab-pane p{
+    height: 30px;
+    line-height: 30px;
     margin: 5px 0;
     padding: 10px 0;
     background-color: #e1e1e1;
@@ -61,5 +63,6 @@
   .el-tab-pane p i {
     float: right;
     margin-right: 40px;
+    margin-top: 4px;
   }
 </style>

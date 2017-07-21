@@ -1,7 +1,7 @@
 <template>
     <div class="right-wrapper">
-      <el-input type="textarea" v-model="text"></el-input>
-      <el-button icon="edit" @click="edit_note(text)">修改</el-button>
+      <el-input type="textarea" v-model="content"></el-input>
+      <el-button icon="edit" @click="changeContent">修改</el-button>
       <el-button icon="delete" @click="del_note">删除</el-button>
     </div>
 </template>
@@ -12,12 +12,16 @@
   export default {
     data() {
       return {
-        text:''
+        content:''
       }
     },
     mounted() {
     },
     methods: {
+      changeContent() {
+        this.edit_note(this.content)
+        this.content = ''
+      },
       ...mapActions([
         'edit_note',
         'del_note'
@@ -25,7 +29,7 @@
     },
     computed: {
       ...mapGetters([
-        'activeNote'
+        'text'
       ])
     }
   }
@@ -38,6 +42,9 @@
     height: 100%;
     box-sizing: border-box;
     padding: 20px;
+  }
+  .right-wrapper .el-textarea {
+    margin-bottom: 10px;
   }
 </style>
 

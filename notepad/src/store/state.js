@@ -1,7 +1,8 @@
 const state = {
   notes:[],
   activeNote:{},
-  favorNotes:[]
+  favorNotes:[],
+  text:''
 }
 
 export  default state
