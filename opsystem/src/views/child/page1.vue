@@ -1,7 +1,7 @@
 <template>
     <div class="page1">
       <mu-raised-button v-show="UserInfo.Jid == 2" label="新增商品" class="addProd" @click="open"/>
-      <mu-dialog :open="dialog" title="Dialog" @close="close">
+      <mu-dialog :open="dialog" title="新增商品" @close="close">
         <mu-text-field v-model="prod.Name" label="商品名" labelFloat/>
         <mu-flat-button slot="actions" @click="close" primary label="取消"/>
         <mu-flat-button v-show="!updateCheck" slot="actions" primary @click="addProd" label="确定"/>
