@@ -41,13 +41,16 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {mapGetters,mapMutations} from 'vuex'
+  import {mapGetters,mapMutations,mapActions} from 'vuex'
   export default {
     data () {
       return {
         activeList: 'page1',
         title:'商品维护'
       }
+    },
+    created() {
+      this.setUser()
     },
     methods: {
       handleListChange (val) {
@@ -66,6 +69,9 @@
       },
       ...mapMutations({
         removeUser:'REMOVE_USER'
+      }),
+      ...mapActions({
+        setUser:'set_user'
       })
     },
     computed: {
