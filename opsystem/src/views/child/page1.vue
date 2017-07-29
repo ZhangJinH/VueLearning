@@ -30,7 +30,7 @@
         </mu-tbody>
       </mu-table>
       <div v-show="produsIsNull" style="width: 100%;text-align: center;margin: 10px 0;font-size: 16px">暂无数据</div>
-      <mu-pagination v-show="!produsIsNull" @pageChange="handlePageChange" :total="page.total">
+      <mu-pagination :current="page.current" v-show="!produsIsNull" @pageChange="handlePageChange" :total="page.total">
       </mu-pagination>
     </div>
 </template>
@@ -46,7 +46,7 @@
         },
         prods:[],
         page:{
-          total: 130,
+          total: 110,
           current: 1,
           pagesize: 10
         },
