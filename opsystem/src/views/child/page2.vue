@@ -1,7 +1,7 @@
 <template>
     <div class="page2">
       <mu-raised-button label="新增销量" @click="open" class="addSell"/>
-      <mu-dialog :open="dialog" title="新增销量" @close="close">
+      <mu-dialog :open="dialog" :title="addOrChange?'新增销量':'修改销量'" @close="close">
         <mu-select-field label="选择商品" v-model="sell.pid" :maxHeight="200">
           <mu-menu-item v-for="item, index in prods" :key="index" :title="item.Name" :value="item.Pid"/>
         </mu-select-field>
@@ -16,7 +16,8 @@
         <mu-text-field style="display: block" label="请输入销量" v-model="sell.num" labelFloat/>
 
         <mu-flat-button slot="actions" @click="close" primary label="取消"/>
-        <mu-flat-button  slot="actions" primary @click="addSell" :disabled="disabled" label="确定"/>
+        <mu-flat-button v-show="addOrChange" slot="actions" primary @click="addSell" :disabled="disabled" label="确定"/>
+        <mu-flat-button v-show="!addOrChange"  slot="actions" primary @click="updateSell" :disabled="disabled" label="修改"/>
       </mu-dialog>
 
       <mu-table
@@ -32,21 +33,21 @@
             <mu-th  tooltip="操作">操作</mu-th>
           </mu-tr>
         </mu-thead>
-        <mu-tbody >
+        <mu-tbody v-show="!sellIsNull">
           <mu-tr  v-for="item,index in sells"  :key="index" :selected="item.selected">
             <mu-td>{{item.Name}}</mu-td>
             <mu-td>{{item.Place}}</mu-td>
             <mu-td>{{item.Time}}</mu-td>
             <mu-td>{{item.Num}}</mu-td>
             <mu-td >
-              <mu-raised-button  label="修改"/>
+              <mu-raised-button @click.stop="updateOpen(item)" label="修改"/>
               <mu-raised-button @click.stop="del(item.Id)" label="删除" secondary/>
             </mu-td>
           </mu-tr>
         </mu-tbody>
       </mu-table>
-
-      <mu-pagination :current="page.current"  @pageChange="handlePageChange" :total="page.total">
+      <div v-show="sellIsNull" style="width: 100%;text-align: center;margin: 10px 0;font-size: 16px">暂无数据</div>
+      <mu-pagination v-show="!sellIsNull" :current="page.current"  @pageChange="handlePageChange" :total="page.total">
       </mu-pagination>
 
     </div>
@@ -123,7 +124,9 @@
           current: 1,
           pagesize: 10
         },
-        sells:[]
+        sells:[],
+        sellIsNull:false,
+        addOrChange:true
       }
     },
     created() {
@@ -139,6 +142,7 @@
     },
     methods: {
       open(){
+        this.addOrChange = true
         this.dialog = true
       },
       close() {
@@ -154,8 +158,14 @@
         this.sell.num = parseInt(this.sell.num)
         this.$http.post(this.apiurl+'/sell/add',this.sell)
           .then((res) => {
-          this.dialog = false
+            this.dialog = false
             this.getSells()
+            this.sell = {
+              pid:0,
+              place:'北京',
+              time:'',
+              num:0
+            }
           })
       },
       addressChange (value, index) {
@@ -197,8 +207,10 @@
           .then((res) => {
             if (res.data !== null) {
               this.sells = res.data
+              this.sellIsNull = false
             }else {
               this.sells = []
+              this.sellIsNull = true
             }
           })
       },
@@ -207,7 +219,40 @@
         this.getSells()
       },
       del(id) {
-
+        this.$http.delete(this.apiurl+'/sell/delete?id='+id)
+          .then((res) => {
+            if(res.data == 'ok') {
+                this.getSells()
+            }
+          })
+      },
+      updateOpen(item) {
+        this.addOrChange = false
+        this.dialog = true
+        this.sell = {
+          id:item.Id,
+          pid:item.Pid,
+          place:item.Place,
+          time:item.Time,
+          num:item.Num
+        }
+      },
+      updateSell() {
+        this.sell.num = parseInt(this.sell.num)
+        this.$http.put(this.apiurl +'/sell/update',this.sell)
+          .then((res) => {
+            if(res.data == 'ok') {
+              this.dialog = false
+              this.getSells()
+            }
+            delete this.sell.id
+            this.sell = {
+              pid:0,
+              place:'北京',
+              time:'',
+              num:0
+            }
+          })
       }
     },
     computed: {
