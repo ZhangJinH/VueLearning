@@ -8,10 +8,10 @@
 
         <div class="address">
           <mu-text-field class="selectAdd" v-model="sell.place"  hintText="选择地址" style="float: left" disabled/>
-          <mu-picker class="selectAdd" style="width: 300px; float: left;margin-top: -71px; " :slots="addressSlots" :visible-item-count="5" @change="addressChange" :values="address"/>
+          <mu-picker class="selectAdd"  style="width: 300px; float: left;margin-top: -71px; " :slots="addressSlots" :visible-item-count="5" @change="addressChange" :values="address"/>
         </div>
 
-        <mu-date-picker @input="checkAlreadySet"  v-model="sell.time" :errorText="errorText" mode="landscape" hintText="请选择销售时间"/>
+        <mu-date-picker @input="checkAlreadySet"  autoOk v-model="sell.time" :errorText="errorText" mode="landscape" hintText="请选择销售时间"/>
 
         <mu-text-field style="display: block" label="请输入销量" v-model="sell.num" labelFloat/>
 
@@ -166,6 +166,9 @@
               time:'',
               num:0
             }
+            this.address = ['北京', '北京']
+            this.addressProvince = '北京'
+            this.addressCity = '北京'
           })
       },
       addressChange (value, index) {
@@ -252,6 +255,7 @@
               time:'',
               num:0
             }
+
           })
       }
     },

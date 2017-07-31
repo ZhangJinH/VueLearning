@@ -38,7 +38,7 @@
             } else {
               this.errmsg1 = ''
               this.errmsg2 = ''
-              this.setUser(res.data.id)
+              this.setUser()
               this.$router.push({path:'/main'})
             }
           })

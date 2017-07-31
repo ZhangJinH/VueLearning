@@ -8,6 +8,8 @@ import page1 from '@/views/child/page1'
 import page2 from '@/views/child/page2'
 import page3 from '@/views/child/page3'
 import page4 from '@/views/child/page4'
+import page5 from '@/views/child/page5'
+import page6 from '@/views/child/page6'
 
 Vue.use(Router)
 
@@ -54,6 +56,16 @@ const router = new Router({
           path: 'page4',
           name: 'page4',
           component: page4
+        },
+        {
+          path: 'page5',
+          name: 'page5',
+          component: page5
+        },
+        {
+          path: 'page6',
+          name: 'page6',
+          component: page6
         },
       ]
     }

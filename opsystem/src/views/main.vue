@@ -18,20 +18,24 @@
             <mu-list-item title="销量统计" value="page2">
               <mu-icon slot="left" value="save"/>
             </mu-list-item>
-            <mu-list-item title="报表查看" value="page3">
+            <mu-list-item title="报表查看" toggleNested>
               <mu-icon slot="left" value="sort"/>
+              <mu-list-item slot="nested" title="柱状图" value="page3">
+                <mu-icon slot="left" value="sort"/>
+              </mu-list-item>
+              <mu-list-item slot="nested" title="饼图" value="page4">
+                <mu-icon slot="left" value="sort"/>
+              </mu-list-item>
+              <mu-list-item slot="nested" title="热力图" value="page5">
+                <mu-icon slot="left" value="sort"/>
+              </mu-list-item>
             </mu-list-item>
-            <mu-list-item title="信息维护" value="page4">
+            <mu-list-item title="信息维护" value="page6">
               <mu-icon slot="left" value="inbox"/>
             </mu-list-item>
           </mu-list>
         </div>
         <div class="content-right">
-          <div class="breadcrumb">
-            <mu-breadcrumb>
-              <mu-breadcrumb-item >{{title}}</mu-breadcrumb-item>
-            </mu-breadcrumb>
-          </div>
           <div class="body">
             <router-view></router-view>
           </div>
@@ -59,7 +63,6 @@
       },
       handleItemChange(e) {
         this.title = e.title
-        console.log(e);
       },
       LogOut() {
         this.$http.post(this.apiurl+'/logout')
@@ -140,14 +143,8 @@
     height: 100%;
     display: inline-block;
     float: right;
-    padding: 51px 20px 10px 20px;
+    padding: 10px 20px 10px 20px;
     background-color: rgba(0, 0, 0, 0);
-  }
-  .breadcrumb{
-    position: absolute;
-    top:20px;
-    left: 20px;
-    width: 100%;
   }
   .body{
     background-color: white;
