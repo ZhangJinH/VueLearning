@@ -9,6 +9,10 @@ import MuseUi from 'muse-ui'
 import store from './store'
 import 'muse-ui/dist/muse-ui.css'
 import 'muse-ui/dist/theme-carbon.css' // 使用 carbon 主题
+import {DatePicker} from 'element-ui'
+
+Vue.use(DatePicker)
+
 Vue.prototype.$http = axios
 Vue.prototype.$echarts = echarts
 

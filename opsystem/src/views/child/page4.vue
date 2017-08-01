@@ -1,6 +1,6 @@
 <template>
   <div class="page5">
-    <div id="echarts2" style="width: 600px;height: 400px;margin: 0 auto;"></div>
+    <div id="echarts" style="width: 600px;height: 400px;margin: 0 auto;"></div>
   </div>
 </template>
 
@@ -9,11 +9,13 @@
   export default {
     data() {
       return {
-        nums:[]
+        nums:[],
+        echarts:{}
       }
     },
     created() {
       this.$nextTick(function () {
+        this.echarts = this.$echarts.init(document.getElementById('echarts'))
         this.$http.get(this.apiurl + '/sell/gettotalnums')
           .then((res) => {
             if (res.data != null) {
@@ -29,8 +31,7 @@
                 }
                 objs.push(obj)
               })
-              let echarts2 = this.$echarts.init(document.getElementById('echarts2'))
-              let option2 = {
+              let option = {
                 title : {
                   text: '商品总销量',
                   x:'center'
@@ -62,7 +63,7 @@
                   }
                 ]
               };
-              echarts2.setOption(option2)
+              this.echarts.setOption(option)
             }
           })
       })

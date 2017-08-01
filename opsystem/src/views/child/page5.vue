@@ -1,8 +1,14 @@
 <template>
   <div class="page5">
-    <mu-select-field style="float: left;" v-model="pid" label="选择商品"  :maxHeight="200">
-      <mu-menu-item v-for="item, index in prods" :key="index" :title="item.Name" :value="item.Pid"/>
+    <mu-select-field style="float: left;margin-left: 20px" v-model="prod" label="选择商品"  :maxHeight="200">
+      <mu-menu-item v-for="item, index in prods" :key="index" :title="item.Name" :value="item"/>
     </mu-select-field>
+    <el-date-picker
+      style="margin-left: 20px"
+      v-model="month"
+      type="month"
+      placeholder="请选择月份">
+    </el-date-picker>
     <mu-flat-button style="margin: 18px 0 0 10px" @click="handleClick" label="查询" />
 
     <div id="echarts" style="width: 800px;height: 600px;margin: 50px auto;"></div>
@@ -11,6 +17,7 @@
 
 <script type="text/ecmascript-6">
   import {mapGetters} from 'vuex'
+  import '@/common/util'
   import 'echarts/lib/chart/map'
   import 'echarts/map/js/china'
   let geoCoordMap = {
@@ -210,7 +217,9 @@
     data() {
       return {
         prods:[],
-        pid:0
+        prod:{},
+        month:'',
+        echarts:{}
       }
     },
     created() {
@@ -221,35 +230,60 @@
               this.prods = res.data
             }
           })
+        this.echarts = this.$echarts.init(document.getElementById('echarts'))
+        let option = {
+          backgroundColor: '#404a59',
+          geo: {
+            map: 'china',
+            label: {
+              emphasis: {
+                show: false
+              }
+            },
+            roam: true,
+            itemStyle: {
+              normal: {
+                areaColor: '#323c48',
+                borderColor: '#111'
+              },
+              emphasis: {
+                areaColor: '#2a333d'
+              }
+            }
+          },
+        }
+        this.echarts.setOption(option)
       })
     },
     methods: {
       handleClick(){
-        this.$http.get(this.apiurl+'/sell/gettotalplace?pid=' + this.pid)
+        let date = new Date(this.month)
+        console.log(date.format('yyyy-MM'));
+        this.$http.get(this.apiurl+'/sell/gettotalplace?pid=' + this.prod.Pid + '&date=' + date.format('yyyy-MM'))
           .then((res) => {
             if(res.data != null) {
               let data = []
+              let max = 0
               res.data.forEach(function (item) {
                 let a = geoCoordMap[item.Place]
                 if (a) {
                   data.push(a.concat(item.Total))
                 }
+                if(item.Total > max) {
+                  max = item.Total
+                }
               })
-              let echarts = this.$echarts.init(document.getElementById('echarts'))
-              let option = {
+              this.echarts.setOption({
                 title: {
-                  text: '全国主要城市空气质量',
-                  subtext: 'data from PM25.in',
-                  sublink: 'http://www.pm25.in',
+                  text: this.prod.Name+date.format('yyyy-MM')+'销量',
                   left: 'center',
                   textStyle: {
                     color: '#fff'
                   }
                 },
-                backgroundColor: '#404a59',
                 visualMap: {
                   min: 0,
-                  max: 100,
+                  max: Math.ceil(max/5)*5,
                   splitNumber: 5,
                   inRange: {
                     color: ['#d94e5d','#eac736','#50a3ba'].reverse()
@@ -258,32 +292,14 @@
                     color: '#fff'
                   }
                 },
-                geo: {
-                  map: 'china',
-                  label: {
-                    emphasis: {
-                      show: false
-                    }
-                  },
-                  roam: true,
-                  itemStyle: {
-                    normal: {
-                      areaColor: '#323c48',
-                      borderColor: '#111'
-                    },
-                    emphasis: {
-                      areaColor: '#2a333d'
-                    }
-                  }
-                },
                 series: [{
                   name: 'AQI',
                   type: 'heatmap',
                   coordinateSystem: 'geo',
                   data: data
                 }]
-              }
-              echarts.setOption(option)
+              })
+
             }
           })
       }
