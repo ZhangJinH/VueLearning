@@ -33,7 +33,7 @@
                 <mu-icon slot="left" value="sort"/>
               </mu-list-item>
             </mu-list-item>
-            <mu-list-item title="信息维护" value="page6">
+            <mu-list-item title="文件上传" value="page6">
               <mu-icon slot="left" value="inbox"/>
             </mu-list-item>
           </mu-list>
