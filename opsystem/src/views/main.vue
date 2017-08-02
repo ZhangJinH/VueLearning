@@ -29,6 +29,9 @@
               <mu-list-item slot="nested" title="热力图" value="page5">
                 <mu-icon slot="left" value="sort"/>
               </mu-list-item>
+              <mu-list-item slot="nested" title="折线图" value="page7">
+                <mu-icon slot="left" value="sort"/>
+              </mu-list-item>
             </mu-list-item>
             <mu-list-item title="信息维护" value="page6">
               <mu-icon slot="left" value="inbox"/>

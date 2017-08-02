@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from '../store'
 import login from '@/views/login'
 import register from '@/views/register'
 import main from '@/views/main'
@@ -10,6 +9,7 @@ import page3 from '@/views/child/page3'
 import page4 from '@/views/child/page4'
 import page5 from '@/views/child/page5'
 import page6 from '@/views/child/page6'
+import page7 from '@/views/child/page7'
 
 Vue.use(Router)
 
@@ -66,6 +66,11 @@ const router = new Router({
           path: 'page6',
           name: 'page6',
           component: page6
+        },
+        {
+          path: 'page7',
+          name: 'page7',
+          component: page7
         },
       ]
     }
